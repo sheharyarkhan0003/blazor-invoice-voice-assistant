@@ -1,0 +1,14 @@
+# Build output
+bin/
+obj/
+
+# IDE and tool settings
+.vs/
+.vscode/
+.idea/
+.cr/
+*.user
+*.suo
+
+# Whisper speech models (downloaded automatically on first use, 150-500 MB)
+server/WhisperModels/

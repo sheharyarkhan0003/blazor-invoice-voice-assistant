@@ -1,0 +1,216 @@
+/* Voice assistant panel (Shared/VoiceAssistant.razor). Neutral, translucent colours so it sits on the dark theme. */
+.va-card {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 12px 14px;
+    margin-bottom: 14px;
+}
+
+.va-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.va-mic {
+    flex: none;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.08);
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.va-mic .rzi {
+    font-size: 26px;
+}
+
+.va-mic:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.va-mic:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+.va-listening .va-mic,
+.va-hearing .va-mic,
+.va-working .va-mic {
+    background: #e74c3c;
+    border-color: #ff8a80;
+    color: #fff;
+}
+
+.va-hearing .va-mic {
+    animation: va-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes va-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.6); }
+    50% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+}
+
+.va-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.va-title {
+    font-weight: 600;
+    font-size: 1.05em;
+}
+
+.va-badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 0.75em;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.12);
+    vertical-align: middle;
+}
+
+.va-listening .va-badge { background: #2e7d32; color: #fff; }
+.va-hearing .va-badge { background: #e74c3c; color: #fff; }
+.va-working .va-badge,
+.va-starting .va-badge { background: #f0ad4e; color: #222; }
+
+.va-status {
+    margin-top: 2px;
+    opacity: 0.9;
+}
+
+.va-meter {
+    margin-top: 6px;
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    max-width: 320px;
+}
+
+.va-meter-fill {
+    height: 100%;
+    width: 0%;
+    background: rgba(255, 255, 255, 0.45);
+    transition: width 80ms linear;
+}
+
+.va-meter-fill.speaking {
+    background: #5cb85c;
+}
+
+.va-clear {
+    flex: none;
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    color: inherit;
+    padding: 3px 10px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.va-clear:hover {
+    opacity: 1;
+}
+
+.va-examples {
+    margin-top: 10px;
+    font-size: 0.9em;
+    opacity: 0.85;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+.va-example {
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.va-log {
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-right: 4px;
+}
+
+.va-entry {
+    display: flex;
+    gap: 10px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border-left: 3px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.92em;
+}
+
+.va-entry-icon {
+    flex: none;
+    font-size: 20px;
+    margin-top: 1px;
+}
+
+.va-entry-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.va-entry-title {
+    font-weight: 600;
+}
+
+.va-time {
+    font-weight: 400;
+    font-size: 0.85em;
+    opacity: 0.55;
+    margin-left: 6px;
+}
+
+.va-entry-text {
+    margin-top: 1px;
+}
+
+.va-entry-details {
+    margin: 3px 0 0 0;
+    padding-left: 18px;
+    opacity: 0.85;
+}
+
+.va-entry-link {
+    display: inline-block;
+    margin-top: 3px;
+    font-weight: 500;
+}
+
+.va-entry-you { border-left-color: #90a4ae; }
+.va-entry-you .va-entry-text { font-style: italic; }
+.va-entry-info { border-left-color: #5bc0de; }
+.va-entry-info .va-entry-icon { color: #5bc0de; }
+.va-entry-fix { border-left-color: #b39ddb; }
+.va-entry-fix .va-entry-icon { color: #b39ddb; }
+.va-entry-success { border-left-color: #5cb85c; background: rgba(92, 184, 92, 0.1); }
+.va-entry-success .va-entry-icon { color: #5cb85c; }
+.va-entry-warning { border-left-color: #f0ad4e; background: rgba(240, 173, 78, 0.1); }
+.va-entry-warning .va-entry-icon { color: #f0ad4e; }
+.va-entry-error { border-left-color: #e74c3c; background: rgba(231, 76, 60, 0.12); }
+.va-entry-error .va-entry-icon { color: #e74c3c; }
+
+@media (max-width: 600px) {
+    .va-header { flex-wrap: wrap; }
+}

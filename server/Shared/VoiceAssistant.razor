@@ -1,0 +1,64 @@
+@using Radzen
+@using Radzen.Blazor
+
+<div class="va-card va-@state.ToString().ToLowerInvariant()">
+  <div class="va-header">
+    <button type="button" class="va-mic" title="@(IsOn ? "Stop listening" : "Start listening")" disabled="@(state == VoiceState.Starting)" @onclick="@MicClick">
+      <RadzenIcon Icon="@(IsOn ? "mic" : state == VoiceState.Starting ? "hourglass_top" : "mic_none")" />
+    </button>
+    <div class="va-main">
+      <div class="va-title">
+        @Title
+        <span class="va-badge">@(state switch { VoiceState.Off => "Off", VoiceState.Starting => "Starting", VoiceState.Working => "Working", VoiceState.Hearing => "Hearing you", _ => "Listening" })</span>
+      </div>
+      <div class="va-status">@status</div>
+      <div class="va-meter" style="visibility: @(IsOn ? "visible" : "hidden")"><div class="va-meter-fill" @ref="meter"></div></div>
+    </div>
+    @if (log.Count > 0)
+    {
+      <button type="button" class="va-clear" title="Clear the activity list" @onclick="@ClearLog">Clear</button>
+    }
+  </div>
+
+  @if (log.Count == 0)
+  {
+    <div class="va-examples">
+      <span>Try saying:</span>
+      @foreach (var example in Examples)
+      {
+        <span class="va-example">“@example”</span>
+      }
+    </div>
+  }
+  else
+  {
+    <div class="va-log" @ref="logBox">
+      @foreach (var entry in log)
+      {
+        <div class="va-entry va-entry-@entry.Kind">
+          <RadzenIcon Icon="@entry.Icon" class="va-entry-icon" />
+          <div class="va-entry-body">
+            <div class="va-entry-title">@entry.Title <span class="va-time">@entry.Time.ToString("HH:mm:ss")</span></div>
+            @if (!string.IsNullOrEmpty(entry.Text))
+            {
+              <div class="va-entry-text">@entry.Text</div>
+            }
+            @if (entry.Details.Count > 0)
+            {
+              <ul class="va-entry-details">
+                @foreach (var detail in entry.Details)
+                {
+                  <li>@detail</li>
+                }
+              </ul>
+            }
+            @if (entry.Link != null)
+            {
+              <a class="va-entry-link" href="@entry.Link">@entry.LinkText →</a>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
