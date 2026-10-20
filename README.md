@@ -154,7 +154,7 @@ RDLC/                           WinForms helper used to design the invoice repor
 meta/                           Radzen IDE metadata
 ```
 
-## Changes from the original project
+## Technical notes
 
 - `System.Linq.Dynamic.Core` pinned to 1.6.x. The version that comes with Radzen 3.2.6 crashes on .NET 6+ ("No interop methods are registered for renderer").
 - Radzen.Blazor kept at 3.2.6 on purpose (newer versions change the UI components)
